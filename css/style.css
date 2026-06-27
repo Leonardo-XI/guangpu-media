@@ -32,34 +32,28 @@ body {
   text-align: center;
   position: relative;
   overflow: hidden;
-  height: 170px;
+  padding: 20px 20px 0;
 }
 
 .header-inner {
   position: relative;
   z-index: 2;
-  height: 100%;
+  max-width: 500px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  padding-bottom: 18px;
 }
 
-.brand-logo-img {
-  position: absolute;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 110%;
-  max-width: none;
-  max-height: none;
-  height: auto;
-  object-fit: cover;
-  object-position: top center;
-  z-index: 1;
-  opacity: 0.85;
-  display: block;
+.brand-subtitle {
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 3;
+  order: 0;
 }
 
 .brand-name {
@@ -68,22 +62,24 @@ body {
   color: #fff;
   letter-spacing: 10px;
   font-family: "YouYuan", "幼圆", "STYuanti", "PingFang SC", "Microsoft YaHei", sans-serif;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   position: relative;
   z-index: 3;
+  order: 1;
 }
 
-.brand-subtitle {
-  display: inline-block;
-  font-size: 10px;
-  color: #000;
-  background: #00FF66;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 3px 10px;
+.brand-logo-img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  object-fit: contain;
+  object-position: top center;
+  margin-top: 2px;
+  opacity: 0.85;
   position: relative;
-  z-index: 3;
+  z-index: 1;
+  order: 2;
 }
 
 /* ========== 主内容区 ========== */
