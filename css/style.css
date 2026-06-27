@@ -64,17 +64,13 @@ body {
   order: 1;
 }
 
-.brand-logo-img {
+.brand-logo-svg {
   display: block;
   width: 100%;
-  max-width: none;
+  max-width: 500px;
   height: auto;
-  object-fit: contain;
-  object-position: top center;
-  margin-top: -70px;
+  margin-top: -25px;
   opacity: 0.85;
-  position: relative;
-  z-index: 1;
   order: 2;
 }
 
