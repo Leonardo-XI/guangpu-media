@@ -30,14 +30,10 @@ body {
 .site-header {
   background: var(--brand-carbon);
   text-align: center;
-  position: relative;
-  overflow: hidden;
-  padding: 20px 20px 0;
+  padding: 18px 20px 0;
 }
 
 .header-inner {
-  position: relative;
-  z-index: 2;
   max-width: 500px;
   margin: 0 auto;
   display: flex;
@@ -75,7 +71,7 @@ body {
   height: auto;
   object-fit: contain;
   object-position: top center;
-  margin-top: 2px;
+  margin-top: -70px;
   opacity: 0.85;
   position: relative;
   z-index: 1;
