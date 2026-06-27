@@ -69,9 +69,11 @@ body {
   width: 100%;
   max-width: 500px;
   height: auto;
-  margin-top: -25px;
+  margin-top: 8px;
+  margin-bottom: -160px;
   opacity: 0.85;
   order: 2;
+  overflow: visible;
 }
 
 /* ========== 主内容区 ========== */
