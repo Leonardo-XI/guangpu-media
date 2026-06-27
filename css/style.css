@@ -48,7 +48,7 @@ body {
 
 .brand-logo-img {
   position: absolute;
-  top: 0;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
   width: 110%;
@@ -111,14 +111,17 @@ body {
 }
 
 .section-intro .tag {
-  display: inline-block;
-  background: var(--brand-carbon);
-  color: #fff;
-  font-size: 10px;
-  padding: 2px 8px;
-  border-radius: 3px;
-  letter-spacing: 2px;
-  margin-bottom: 8px;
+  display: inline;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+}
+
+.section-intro .tag .pipe {
+  margin: 0 6px;
+  opacity: 0.3;
+  font-weight: 400;
 }
 
 /* 文章列表 */
