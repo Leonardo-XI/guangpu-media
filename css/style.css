@@ -28,13 +28,13 @@ body {
 
 /* ========== 头部品牌栏 ========== */
 .site-header {
-  background: #000;
-  padding: 40px 20px 36px;
+  background: var(--brand-carbon);
+  padding: 32px 20px 28px;
   text-align: center;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
 }
 
 .header-inner {
@@ -43,27 +43,28 @@ body {
 }
 
 .brand-logo-img {
-  width: 160px;
+  display: block;
+  width: 150px;
   height: auto;
-  margin-bottom: 14px;
+  max-height: 70px;
+  object-fit: contain;
+  margin: 0 auto 6px;
 }
 
 .brand-name {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 400;
   color: #fff;
-  letter-spacing: 6px;
-  margin-bottom: 10px;
+  letter-spacing: 10px;
+  font-family: "YouYuan", "幼圆", "STYuanti", "PingFang SC", "Microsoft YaHei", sans-serif;
+  margin-bottom: 6px;
 }
 
 .brand-subtitle {
-  display: inline-block;
   font-size: 11px;
-  color: #1A1D20;
-  background: #00FF66;
+  color: rgba(255,255,255,0.55);
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 3px 12px;
 }
 
 /* ========== 主内容区 ========== */
@@ -174,27 +175,7 @@ body {
 
 /* ========== 页脚 ========== */
 .site-footer {
-  background: #000;
-  color: rgba(255,255,255,0.65);
   text-align: center;
-  padding: 20px 20px;
-  font-size: 12px;
-  line-height: 1.8;
-}
-
-.site-footer .footer-brand {
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 6px;
-  margin-bottom: 6px;
-}
-
-.site-footer .footer-subtitle {
-  font-size: 10px;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 2px;
-  margin-bottom: 12px;
 }
 
 .site-footer .footer-tagline-bar {
@@ -202,16 +183,12 @@ body {
   color: #000;
   font-size: 12px;
   font-weight: 600;
-  padding: 8px 14px;
+  padding: 9px 14px;
   letter-spacing: 1px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 2px;
 }
 
 .site-footer .footer-tagline-bar .pipe {
-  opacity: 0.3;
+  opacity: 0.25;
   margin: 0 6px;
 }
 
@@ -220,27 +197,33 @@ body {
   letter-spacing: 1px;
 }
 
-.site-footer a {
-  color: rgba(255,255,255,0.7);
-  text-decoration: none;
-}
-
-.site-footer a:hover {
-  color: #fff;
-}
-
 .site-footer .footer-links {
-  margin-top: 10px;
-  font-size: 11px;
-  color: rgba(255,255,255,0.45);
+  padding: 14px 20px;
+  font-size: 13px;
+  background: #fff;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  align-items: center;
 }
 
 .site-footer .footer-links a {
-  color: rgba(255,255,255,0.5);
+  color: var(--text-secondary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .site-footer .footer-links a:hover {
-  color: #00FF66;
+  color: #000;
+}
+
+.site-footer .footer-links svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 /* ========== 文章页底部导航 ========== */
