@@ -28,13 +28,13 @@ body {
 
 /* ========== 头部品牌栏 ========== */
 .site-header {
-  background: var(--brand-carbon);
-  padding: 32px 20px 28px;
+  background: #fff;
+  padding: 36px 20px 32px;
   text-align: center;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
 .header-inner {
@@ -42,31 +42,23 @@ body {
   margin: 0 auto;
 }
 
-.brand-mark {
-  display: inline-block;
-  width: 56px;
-  height: 56px;
-  line-height: 56px;
-  background: #fff;
-  color: var(--brand-carbon);
-  font-size: 28px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  border-radius: 4px;
-  margin-bottom: 14px;
+.brand-logo-svg {
+  width: 110px;
+  height: auto;
+  margin-bottom: 16px;
 }
 
 .brand-name {
   font-size: 24px;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-primary);
   letter-spacing: 6px;
   margin-bottom: 4px;
 }
 
 .brand-subtitle {
   font-size: 11px;
-  color: rgba(255,255,255,0.55);
+  color: var(--text-muted);
   letter-spacing: 2px;
   text-transform: uppercase;
 }
@@ -81,17 +73,18 @@ body {
 /* 专题介绍 */
 .section-intro {
   background: #fff;
-  border-left: 3px solid var(--brand-carbon);
-  padding: 18px 20px;
+  border-left: 3px solid var(--accent-green);
+  padding: 18px 22px;
   margin-bottom: 28px;
   border-radius: 0 6px 6px 0;
   font-size: 14px;
   color: var(--text-secondary);
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
 .section-intro strong {
-  color: var(--brand-carbon);
+  color: var(--text-primary);
+  letter-spacing: 1px;
 }
 
 .section-intro .tag {
@@ -178,36 +171,47 @@ body {
 
 /* ========== 页脚 ========== */
 .site-footer {
-  background: var(--brand-carbon);
-  color: rgba(255,255,255,0.65);
+  background: #F4F7F9;
+  color: var(--text-secondary);
   text-align: center;
   padding: 32px 20px;
   font-size: 12px;
   line-height: 1.8;
+  border-top: 2px solid var(--accent-green);
 }
 
 .site-footer .footer-brand {
   font-size: 18px;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-primary);
   letter-spacing: 6px;
   margin-bottom: 6px;
 }
 
 .site-footer .footer-subtitle {
   font-size: 10px;
-  color: rgba(255,255,255,0.4);
+  color: var(--text-muted);
   letter-spacing: 2px;
   margin-bottom: 12px;
 }
 
 .site-footer a {
-  color: rgba(255,255,255,0.7);
+  color: var(--accent-blue);
   text-decoration: none;
 }
 
 .site-footer a:hover {
-  color: #fff;
+  color: var(--brand-carbon-light);
+}
+
+.site-footer .footer-tagline {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 14px;
+  background: rgba(0, 255, 102, 0.12);
+  color: var(--text-secondary);
+  font-size: 12px;
+  letter-spacing: 0.5px;
 }
 
 /* ========== 文章页底部导航 ========== */
