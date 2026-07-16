@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="ClaudeCode给中国玩了把特洛伊木马">
+<meta property="og:description" content="导读">
+<meta property="og:image" content="https://spectruminfo.xyz/assets/og-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:url" content="https://spectruminfo.xyz/20-claude-code.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="广谱 · THE SPECTRUM">
+
+<title>ClaudeCode给中国玩了把特洛伊木马</title>
+<style>
+  /* ========== 广谱 · 公众号排版 ========== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.85;
+    color: #1a1a1a;
+    background: #F6F8FA;
+    max-width: 677px;
+    margin: 0 auto;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== 文章头部 ===== */
+  .article-header {
+    padding: 36px 20px 0;
+    margin-bottom: 0;
+    background: #fff;
+  }
+
+  .header-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+  }
+
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .header-brand-square {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: #00FF66;
+    flex-shrink: 0;
+  }
+
+  .header-brand-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: 1px;
+  }
+
+  .header-briefing {
+    font-size: 11px;
+    color: #999;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .header-rule {
+    height: 2px;
+    background: #D1D5DB;
+    margin: 0 0 18px;
+  }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1A1D20;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .section-label-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    background: #00FF66;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .article-title {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.35;
+    color: #121212;
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
+  }
+
+  .article-subtitle {
+    font-size: 17px;
+    color: #555;
+    font-weight: 400;
+    line-height: 1.55;
+    margin-bottom: 20px;
+  }
+
+  .article-meta {
+    font-size: 13px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .meta-by {
+    font-weight: 700;
+    color: #666;
+    margin-right: 4px;
+  }
+
+  .meta-author {
+    font-style: italic;
+    color: #888;
+  }
+
+  .meta-sep {
+    color: #ccc;
+    margin: 0 10px;
+    font-weight: 300;
+  }
+
+  .meta-date, .meta-readtime {
+    color: #888;
+  }
+
+  .hero-image {
+    margin: 24px 0 0;
+    text-align: center;
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 24px;
+  }
+
+  .hero-image img {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+  }
+
+  .image-caption {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 10px;
+    text-align: center;
+    font-style: italic;
+    letter-spacing: 0.5px;
+  }
+
+  .article-body {
+    padding: 30px 20px;
+    background: #fff;
+  }
+
+  .article-body p {
+    margin-bottom: 20px;
+    text-align: justify;
+    word-break: break-word;
+  }
+
+  .guide {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 22px 20px;
+    margin: 24px 0 20px;
+    background: #f4f6f8;
+    border-left: 3px solid #1A1D20;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .guide-body {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.9;
+  }
+
+  .guide-label {
+    font-weight: 700;
+    color: #1A1D20;
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+
+  .section-heading {
+    font-size: 22px;
+    font-weight: 700;
+    color: #121212;
+    margin: 40px 0 16px;
+    line-height: 1.4;
+    padding-top: 20px;
+    border-top: 1px solid #e8e8e8;
+  }
+
+  .pullquote {
+    margin: 30px 0;
+    padding: 20px 24px;
+    background: #fafafa;
+    font-size: 17px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.7;
+    position: relative;
+    border-left: 3px solid #1A1D20;
+  }
+
+  .pullquote::before {
+    content: '"';
+    position: absolute;
+    left: 8px;
+    top: -8px;
+    font-size: 300px;
+    color: #00FF66;
+    opacity: 0.08;
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1;
+  }
+
+  .pullquote-source {
+    font-size: 13px;
+    color: #999;
+    font-weight: 400;
+    margin-top: 8px;
+    font-style: normal;
+  }
+
+  .references {
+    margin: 30px 0;
+    padding: 20px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+
+  .references h3 {
+    font-size: 13px;
+    color: #1A1D20;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .references ol {
+    padding-left: 20px;
+    font-size: 12px;
+    color: #888;
+    line-height: 2;
+  }
+
+  .references a {
+    color: #666;
+    text-decoration: none;
+  }
+
+  .article-footer {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #00FF66;
+    color: #1a1a1a;
+    text-align: center;
+  }
+
+  .footer-tagline {
+    font-size: 11px;
+    color: #1a1a1a;
+  }
+
+  .num {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', 'Courier New', monospace;
+    font-weight: 700;
+    color: #1A1D20;
+  }
+
+  strong { color: #1a1a1a; }
+  em { font-style: italic; color: #555; }
+
+  /* ========== 三模块专属样式 ========== */
+  .module-tag {
+    display: inline-block;
+    padding: 5px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  .tag-raw {
+    background: #1A1D20;
+    color: #fff;
+  }
+
+  .tag-spectrum {
+    background: #00FF66;
+    color: #1A1D20;
+    font-weight: 800;
+  }
+
+  .global-focus-tag {
+    display: inline-block;
+    padding: 4px 14px;
+    background: #0044BB;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    margin-bottom: 14px;
+  }
+
+  .em-blue {
+    color: #0044BB;
+    font-weight: 700;
+  }
+
+  .module-raw {
+    margin: 28px 0;
+    padding: 22px 24px;
+    background: #F4F7F9;
+    border-left: 3px solid #666;
+    font-size: 14px;
+    font-style: italic;
+    color: #444;
+    line-height: 1.85;
+  }
+
+  .module-raw p {
+    margin-bottom: 14px;
+    text-align: justify;
+    word-break: break-word;
+  }
+
+  .module-raw p:last-child {
+    margin-bottom: 0;
+  }
+
+  .module-reaction {
+    margin: 28px 0;
+    padding: 22px 24px;
+    background: #FAFAFA;
+    border-left: 3px solid #1A1D20;
+  }
+
+  .module-reaction p {
+    margin-bottom: 14px;
+    text-align: justify;
+    word-break: break-word;
+    line-height: 1.85;
+  }
+
+  .module-reaction p:last-child {
+    margin-bottom: 0;
+  }
+
+  .module-spectrum {
+    margin: 32px 0;
+    padding: 26px 24px;
+    background: #EBF2EE;
+    border-left: 3px solid #1A1D20;
+    font-size: 15px;
+    color: #1a1a1a;
+    line-height: 1.9;
+  }
+
+  .module-spectrum p {
+    margin-bottom: 14px;
+    text-align: justify;
+    word-break: break-word;
+  }
+
+  .module-spectrum p:last-child {
+    margin-bottom: 8px;
+  }
+
+  .spectrum-block {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: #00FF66;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .spectrum-ending {
+    text-align: right;
+    font-size: 12px;
+    font-weight: 700;
+    color: #1A1D20;
+    letter-spacing: 2px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(26, 29, 32, 0.12);
+  }
+</style>
+</head>
+<body>
+
+<header class="article-header">
+  <div class="header-topbar">
+    <div class="header-brand">
+      <span class="header-brand-square"></span>
+      <span class="header-brand-name">广谱</span>
+    </div>
+    <span class="header-briefing">THE SPECTRUM · 2026</span>
+  </div>
+
+  <div class="header-rule"></div>
+
+  <h1 class="article-title">ClaudeCode给中国玩了把特洛伊木马</h1>
+  <p class="article-subtitle">当编程助手把监视藏进看不见的标点符号，信任是如何塌房的</p>
+
+  <div class="article-meta">
+    <span class="meta-by">作者</span>
+    <span class="meta-author">广谱</span>
+    <span class="meta-sep">|</span>
+    <span class="meta-date">2026年7月14日</span>
+    <span class="meta-sep">|</span>
+    <span class="meta-readtime">约 7 分钟</span>
+  </div>
+  <div class="hero-image">
+    <img src="images/20-claude-code/header.png" alt="文章配图" />
+    <div class="image-caption">纽约时报评论版风格 · 冷木刻插画</div>
+  </div>
+</header>
+
+<div class="article-body">
+
+  <div class="guide">
+    <div class="guide-body">
+      <div class="guide-label">导读</div>
+      2026年6月底，有安全研究员从 Claude Code 中逆向出一段专门标记中国用户的代码：比对本地时区、扫描147个中国域名，再以肉眼难辨的水印回传。事件引发中美 AI 监管与信任的连锁震荡。广谱说：我们到底把多少权力，交给了桌面上那个输入框？
+    </div>
+  </div>
+
+  <span class="module-tag tag-raw">原声 · ORIGINAL VOICE</span>
+  <div class="module-raw">
+    <p>2026年6月30日，海外社交平台 Reddit 上，一名技术人员发帖说，Anthropic 公司的 Claude Code 里，藏着一段专门标记中国用户的监视代码。随后安全研究员 Adnane Khan 在 GitHub 发布逆向分析报告，抠出了完整机制，而这一切早在4月2日的 <span class="num">2.1.91</span> 版就埋进去了。</p>
+    <p>它干的事很隐蔽：读取你电脑的本地时区，重点比对上海和乌鲁木齐，再扫描你的 API 地址，跟 <span class="num">147</span> 个中国域名清单比对——百度、阿里、字节、美团、携程、小红书、京东、B站、月之暗面、MiniMax、阶跃星辰都在。一旦命中，它不弹窗、不报错，而是悄悄改写系统提示词里的日期——把连字符换成斜杠，把 Today's 里的撇号换成肉眼难辨的水印，发回服务器。用户全程无感。</p>
+    <p>7月2日 Anthropic 推送新版，删掉了这段代码；7月8日，工信部网络安全威胁和漏洞信息共享平台发布风险提示，点名 <span class="num">2.1.91</span> 到 <span class="num">2.1.196</span> 版本存在安全后门；阿里更早——7月3日内部通知，7月10日起全员禁用 Claude Code，统一换自研的 Qoder。Anthropic 把这套机制解释为3月起的实验，防账号倒卖和模型蒸馏，并称已发现 <span class="num">2.5</span> 万个阿里关联虚假账号、<span class="num">2800</span> 万次疑似蒸馏调用。</p>
+  </div>
+
+  <span class="global-focus-tag">⚡ GLOBAL FOCUS · 回响 ECHOES</span>
+  <div class="module-reaction">
+    <p><span class="em-blue">Reddit r/ClaudeAI：</span>有网友替 Anthropic 辩护——"你对 Claude 获取你的位置信息感到震惊？你电脑上有上百种东西在监视和追踪你。"另一派则反驳发现者："虽 IP 保护合理，但不应以在每位开发者系统上嵌入实质间谍软件为代价。"也有中间派：把这事定性为间谍软件"过于夸大"，但"永远不要过于夸大"。</p>
+    <p><span class="em-blue">知乎：</span>一条高赞评论点出信任模型的崩塌——一个被允许读写文件和执行命令的 agent，同时在悄悄检测你的网络环境并把结果上报。今天它能报告时区和域名，明天就能偷掉你所有的数据。</p>
+    <p><span class="em-blue">微博：</span>有人写道：工信部监测发现，它内置了一套暗哨系统，能在用户毫无察觉的情况下窃取地域、身份等关键数据。</p>
+  </div>
+
+  <div class="pullquote">
+    今天它能报告时区和域名，明天就能偷掉你所有的数据。
+    <div class="pullquote-source">—— 知乎高赞评论</div>
+  </div>
+
+  <span class="module-tag tag-spectrum">广谱说 · SPECTRUM</span>
+  <div class="module-spectrum">
+    <p>这场风波最值得琢磨的，不是谁在偷看谁，而是我们究竟把多大的权力交给了桌面上那个输入框。</p>
+    <p>Claude Code 这类代理式编程工具，默认拥有读文件、跑命令、操作 git 的权限——这已经逼近红线。我们授权它，前提是行为我看得见。可当一款工具把分类逻辑藏进看不见的标点符号，信任就塌了。</p>
+    <p>虎嗅把它称作中美 AI 监管双向闸口的起点，并提出"硅幕"一词。Anthropic 的服务条款从一开始就排除中国大陆，2025年9月又禁止中国控股超50%的企业使用；6月底到7月初，大量中国账户被无预警封禁，杭州成了重灾区，圈内甚至流传近期去杭州出差别开 Claude。当开发工具本身成为大国博弈的筹码，每一行代码都可能暗含政治意志——这不是阴谋论，是 <span class="num">147</span> 个域名清单和大规模惨烈封号写下的事实。</p>
+    <p>隐写术本身不新。从古希腊把消息刺在奴隶头皮上，到现代数字水印，都是让第三者看不见、让接收方读得懂的老手艺。Anthropic 把它用进消费级开发工具，手法之精巧反而更刺眼：它本可以用透明的遥测字段、写进变更日志，却选了混淆与隐写。有开发者打了个比方——一家餐厅高调展示卫生评分，后厨却把昨天的鱼重新加热。品牌承诺和厨房现实之间的缝，就是信任塌架的地方。</p>
+    <div class="pullquote" style="background:#fff;border-left:3px solid #1A1D20;">
+      品牌承诺和厨房现实之间的缝，就是信任塌架的地方。
+    </div>
+    <p>真正该留下的，是两条朴素原则：最小权限与数据隔离。任何 AI 工具，坚决不授予超出需求的系统权限，别让它直接碰企业核心代码、客户隐私、财务凭证。工具好不好用是其次，底线是——你玩代码时，别让代码反过来玩了你。</p>
+    <div class="spectrum-ending"><span class="spectrum-block"></span>THE SPECTRUM</div>
+  </div>
+
+  <div class="references">
+    <h3>参考文献</h3>
+    <ol>
+      <li>工信部网络安全威胁和漏洞信息共享平台（NVDB）风险提示，2026-07-08（<a href="https://www.nvdb.gov.cn/" target="_blank">nvdb.gov.cn</a>）</li>
+      <li>Reddit r/ClaudeAI 原帖 "Anthropic embedded spyware in Claude Code"（<a href="https://www.reddit.com/r/ClaudeAI/comments/1ujila1/anthropic_embedded_spyware_in_claude_code_and/" target="_blank">reddit.com</a>）</li>
+      <li>Adnane Khan 于 GitHub 发布的 Claude Code 逆向分析报告（检索于 2026-07-14）</li>
+      <li>阿里内部通知（7/3 发布、7/10 执行全员禁用），据经济日报、腾讯等媒体报道</li>
+      <li>知乎话题「如何评价 Claude Code 被指暗藏监控中国代码」</li>
+      <li>微博相关话题讨论（工信部通报、暗哨系统）</li>
+      <li>虎嗅《"硅幕"：当开发工具成为博弈筹码》</li>
+      <li>检索于 2026-07-14</li>
+    </ol>
+  </div>
+
+</div>
+
+<footer class="article-footer">
+  <div class="footer-tagline">刺破算法茧房，重归广谱阅读</div>
+</footer>
+
+
+<!-- 文章底部导航 -->
+<link rel="stylesheet" href="/css/style.css">
+<div class="article-bottom-nav">
+  <a href="/index.html" class="back-btn">返回首页查看往期文章</a>
+  <div class="social-row">
+    <a class="social-link" href="https://channels.weixin.qq.com/" target="_blank" rel="noopener"><img src="/assets/channels-icon.svg" alt="" width="18" height="18" style="vertical-align:middle"> 蝴蝶号</a>
+    <a class="social-link" href="https://xima.tv/1_7uO7bj?_sonic=0" target="_blank" rel="noopener"><img src="/assets/xmly-icon.svg" alt="" width="18" height="18" style="vertical-align:middle"> 喜马拉雅</a>
+  </div>
+  <div class="brand-line">THE SPECTRUM | 广谱</div>
+  <div class="brand-tagline">跨学科思想实验与未来推演</div>
+</div>
+</body>
+</html>
