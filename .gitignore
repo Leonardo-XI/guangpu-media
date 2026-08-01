@@ -1,0 +1,8 @@
+# 本地预览服务依赖与脚本（不进仓库）
+node_modules/
+server.js
+package.json
+package-lock.json
+Procfile
+start.sh
+dashboard/
