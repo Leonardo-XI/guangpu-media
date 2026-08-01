@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>广谱 · 访问统计</title>
+<style>
+  :root {
+    --bg: #1A1D20;
+    --card: #22262A;
+    --border: #2A2E32;
+    --text: #B0B3B6;
+    --text-dim: #6B6F73;
+    --green: #00FF66;
+    --green-dim: rgba(0, 255, 102, 0.12);
+    --radius: 10px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 20px 16px 40px;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 0 24px; border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .header h1 {
+    font-size: 26px; font-weight: 300; letter-spacing: 4px;
+    color: #fff;
+  }
+  .header .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px rgba(0, 255, 102, 0.5);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .header .sub { font-size: 12px; color: var(--text-dim); }
+
+  /* Stat Cards */
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px; text-align: center;
+  }
+  .stat-card .num {
+    font-size: 32px; font-weight: 700; color: var(--green);
+    line-height: 1.2;
+  }
+  .stat-card .label {
+    font-size: 12px; color: var(--text-dim); margin-top: 4px;
+  }
+
+  /* Section */
+  .section { margin-bottom: 24px; }
+  .section h2 {
+    font-size: 14px; font-weight: 500; color: #888;
+    letter-spacing: 2px; margin-bottom: 12px;
+    padding-left: 8px; border-left: 2px solid var(--green);
+  }
+
+  /* Tables */
+  .table-wrap {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .table-wrap table {
+    width: 100%; border-collapse: collapse;
+    font-size: 13px;
+  }
+  .table-wrap th {
+    text-align: left; padding: 10px 14px; font-weight: 500;
+    color: var(--text-dim); font-size: 11px; letter-spacing: 1px;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid var(--border);
+  }
+  .table-wrap td {
+    padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.03);
+    color: var(--text);
+  }
+  .table-wrap tr:last-child td { border-bottom: none; }
+  .bar-cell {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .bar {
+    height: 6px; border-radius: 3px; background: var(--green);
+    opacity: 0.6; min-width: 4px; transition: width 0.5s ease;
+  }
+  .bar-max {
+    opacity: 1;
+  }
+  .num-cell { text-align: right; font-variant-numeric: tabular-nums; color: var(--green); }
+
+  /* Bar chart (hourly) */
+  .hourly-chart {
+    display: flex; align-items: flex-end; gap: 2px;
+    padding: 16px 10px; height: 100px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .hourly-bar {
+    flex: 1; background: var(--green); border-radius: 2px 2px 0 0;
+    min-height: 2px; opacity: 0.5;
+    transition: opacity 0.3s;
+    position: relative;
+  }
+  .hourly-bar:hover { opacity: 1; }
+  .hourly-label {
+    display: flex; justify-content: space-between;
+    padding: 4px 10px; font-size: 10px; color: var(--text-dim);
+  }
+
+  /* Refresh */
+  .refresh-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0;
+  }
+  .refresh-btn {
+    background: var(--card); color: var(--green); border: 1px solid var(--border);
+    padding: 6px 16px; border-radius: 6px; cursor: pointer;
+    font-size: 13px;
+  }
+  .refresh-btn:hover { background: var(--green-dim); }
+  .last-update { font-size: 11px; color: var(--text-dim); }
+
+  /* Empty state */
+  .empty {
+    text-align: center; padding: 48px 16px; color: var(--text-dim);
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-card .num { font-size: 24px; }
+    .table-wrap { overflow-x: auto; }
+    .table-wrap table { min-width: 400px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="dot"></div>
+    <div>
+      <h1>广 谱</h1>
+      <div class="sub">THE SPECTRUM · 访问数据面板</div>
+    </div>
+  </div>
+
+  <div class="refresh-bar">
+    <span class="last-update" id="lastUpdate">加载中...</span>
+    <button class="refresh-btn" onclick="loadStats()">刷新数据</button>
+  </div>
+
+  <div class="stat-grid" id="statGrid"></div>
+
+  <div id="content"></div>
+
+  <div class="empty" id="noData" style="display:none">
+    暂无访问数据。当网站有访客后，数据将在此处显示。
+  </div>
+
+</div>
+
+<script>
+async function loadStats() {
+  try {
+    const resp = await fetch('/api/stats');
+    const data = await resp.json();
+    document.getElementById('lastUpdate').textContent =
+      '数据更新: ' + new Date(data.lastUpdated).toLocaleString('zh-CN');
+
+    if (data.totalPV === 0) {
+      document.getElementById('noData').style.display = 'block';
+      document.getElementById('statGrid').innerHTML = '';
+      document.getElementById('content').innerHTML = '';
+      return;
+    }
+    document.getElementById('noData').style.display = 'none';
+
+    // Stat cards
+    renderStatCards(data);
+
+    // Content sections
+    let html = '';
+
+    // 页面浏览排行
+    html += renderSection('页面访问排行', renderPageTable(data.pages, data.totalPV));
+
+    // 城市分布
+    html += renderSection('访客城市分布', renderCityTable(data.topCities, data.totalPV));
+
+    // 设备 & 浏览器 & 渠道 (side by side on desktop)
+    html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px">';
+    html += '<div>' + renderSectionH3('设备') + renderSimpleTable(data.devices, data.totalPV) + '</div>';
+    html += '<div>' + renderSectionH3('浏览器') + renderSimpleTable(data.browsers, data.totalPV) + '</div>';
+    html += '<div>' + renderSectionH3('来源渠道') + renderSimpleTable(data.channels, data.totalPV) + '</div>';
+    html += '</div>';
+
+    // 24小时分布
+    html += renderHourlyChart(data.hourly);
+
+    // 最近访问
+    html += renderSection('最近访问记录', renderRecentTable(data.recent));
+
+    document.getElementById('content').innerHTML = html;
+  } catch (e) {
+    document.getElementById('lastUpdate').textContent = '加载失败: ' + e.message;
+  }
+}
+
+function renderStatCards(data) {
+  document.getElementById('statGrid').innerHTML = `
+    <div class="stat-card"><div class="num">${data.totalPV.toLocaleString()}</div><div class="label">总浏览量 (PV)</div></div>
+    <div class="stat-card"><div class="num">${data.uniqueIPs.toLocaleString()}</div><div class="label">独立访客 (IP)</div></div>
+    <div class="stat-card"><div class="num">${Object.keys(data.pages).length}</div><div class="label">覆盖页面数</div></div>
+    <div class="stat-card"><div class="num">${Object.keys(data.cities || data.topCities).length}</div><div class="label">覆盖城市数</div></div>
+  `;
+}
+
+function renderSection(title, body) {
+  return `<div class="section"><h2>${title}</h2>${body}</div>`;
+}
+
+function renderSectionH3(title) {
+  return `<h3 style="font-size:12px;color:#888;margin-bottom:8px;letter-spacing:1px">${title}</h3>`;
+}
+
+function renderPageTable(pages, total) {
+  const sorted = Object.entries(pages).sort((a,b) => b[1]-a[1]);
+  const max = sorted[0]?.[1] || 1;
+  const nameMap = {
+    '/': '首页',
+    '03-perfect-online-romance': '完美网恋',
+    '04-internet-memory-demolished': '互联网记忆',
+    '01-ai-devaluation': 'AI贬值危机',
+    '02-useless-class': '无用阶级'
+  };
+  let rows = sorted.map(([k,v]) => {
+    const name = nameMap[k] || k;
+    const pct = ((v/total)*100).toFixed(1);
+    const w = Math.max((v/max)*100, 2);
+    return `<tr>
+      <td>${name}</td>
+      <td>
+        <div class="bar-cell">
+          <div class="bar ${v===max?'bar-max':''}" style="width:${w}%"></div>
+          <span style="font-size:11px;color:#888">${pct}%</span>
+        </div>
+      </td>
+      <td class="num-cell">${v}</td>
+    </tr>`;
+  }).join('');
+  return `<div class="table-wrap"><table>
+    <thead><tr><th>页面</th><th>占比</th><th>PV</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
+
+function renderCityTable(cities, total) {
+  if (!cities || cities.length === 0) return '<div class="table-wrap" style="padding:24px;text-align:center;color:var(--text-dim)">暂无城市数据（IP归属地查询中...）</div>';
+  const max = cities[0]?.[1] || 1;
+  let rows = cities.map(([k,v]) => {
+    const pct = ((v/total)*100).toFixed(1);
+    const w = Math.max((v/max)*100, 2);
+    return `<tr>
+      <td>${k}</td>
+      <td>
+        <div class="bar-cell">
+          <div class="bar ${v===max?'bar-max':''}" style="width:${w}%"></div>
+          <span style="font-size:11px;color:#888">${pct}%</span>
+        </div>
+      </td>
+      <td class="num-cell">${v}</td>
+    </tr>`;
+  }).join('');
+  return `<div class="table-wrap"><table>
+    <thead><tr><th>城市</th><th>占比</th><th>PV</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
+
+function renderSimpleTable(obj, total) {
+  const sorted = Object.entries(obj || {}).sort((a,b) => b[1]-a[1]);
+  if (sorted.length === 0) return '<div class="table-wrap" style="padding:16px;text-align:center;color:var(--text-dim)">暂无数据</div>';
+  let rows = sorted.map(([k,v]) => {
+    const pct = ((v/total)*100).toFixed(1);
+    return `<tr><td>${k}</td><td class="num-cell">${v}</td><td style="color:#888;font-size:11px">${pct}%</td></tr>`;
+  }).join('');
+  return `<div class="table-wrap"><table>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
+
+function renderHourlyChart(hourly) {
+  const max = Math.max(...hourly, 1);
+  const bars = hourly.map((v, i) => {
+    const h = Math.max((v/max)*100, 2);
+    return `<div class="hourly-bar" style="height:${h}%" title="${i}:00 — ${v} 次"></div>`;
+  }).join('');
+  const labels = ['0','2','4','6','8','10','12','14','16','18','20','22'];
+  const labelHtml = labels.map(l => `<span>${l}h</span>`).join('');
+  return renderSection('24 小时访问分布',
+    `<div class="hourly-chart">${bars}</div>
+     <div class="hourly-label">${labelHtml}</div>`
+  );
+}
+
+function renderRecentTable(recent) {
+  if (!recent || recent.length === 0) return '<div class="table-wrap" style="padding:24px;text-align:center;color:var(--text-dim)">暂无记录</div>';
+  const pageNames = {
+    '/': '首页',
+    '03-perfect-online-romance': '完美网恋',
+    '04-internet-memory-demolished': '互联网记忆',
+    '01-ai-devaluation': 'AI贬值危机',
+    '02-useless-class': '无用阶级'
+  };
+  let rows = recent.map(r => {
+    const time = new Date(r.time).toLocaleString('zh-CN', {month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+    return `<tr>
+      <td>${time}</td>
+      <td>${pageNames[r.page] || r.page}</td>
+      <td>${r.device || '?'}</td>
+      <td>${r.browser || '?'}</td>
+      <td>${r.channel || '?'}</td>
+      <td style="font-size:11px;color:#888">${r.location || ''}</td>
+    </tr>`;
+  }).join('');
+  return `<div class="table-wrap" style="max-height:420px;overflow-y:auto"><table>
+    <thead><tr><th>时间</th><th>页面</th><th>设备</th><th>浏览器</th><th>来源</th><th>位置</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
+
+// 自动刷新（每30秒）
+loadStats();
+setInterval(loadStats, 30000);
+</script>
+</body>
+</html>

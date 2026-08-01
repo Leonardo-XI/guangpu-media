@@ -1,0 +1,12 @@
+{
+  "name": "guangpu-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "广谱 · 媒体站点 (含访问统计)",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
