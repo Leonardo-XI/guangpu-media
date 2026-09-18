@@ -1,0 +1,63 @@
+# robots.txt — 广谱
+# 全部放行；以下显式声明对主流 AI 爬虫的欢迎态度
+
+User-agent: *
+Allow: /
+
+# ---- 主流 AI 爬虫 ----
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-User
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: CCBot
+Allow: /
+User-agent: Bytespider
+Allow: /
+User-agent: Amazonbot
+Allow: /
+User-agent: meta-externalagent
+Allow: /
+User-agent: cohere-ai
+Allow: /
+User-agent: DuckAssistBot
+Allow: /
+User-agent: YouBot
+Allow: /
+User-agent: Timpibot
+Allow: /
+User-agent: Diffbot
+Allow: /
+
+# ---- 传统搜索引擎 ----
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
+User-agent: Baiduspider
+Allow: /
+User-agent: Sogou web spider
+Allow: /
+User-agent: YisouSpider
+Allow: /
+User-agent: 360Spider
+Allow: /
+
+Sitemap: https://spectruminfo.xyz/sitemap.xml
