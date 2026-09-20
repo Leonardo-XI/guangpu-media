@@ -1,0 +1,19 @@
+name: IndexNow ping
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping IndexNow (auto on push)
+        env:
+          HOST: spectruminfo.xyz
+          KEY: 218ab63daac83eb1b3920b969dcde10c
+        run: |
+          set -e
+          URLS=$(curl -fsS -A "Mozilla/5.0" "https://$HOST/sitemap.xml" | grep -oP '<loc>\K[^<]+')
+          JSON=$(printf '%s\n' "$URLS" | jq -R -s -c --arg host "$HOST" --arg key "$KEY" 'split("\n")|map(select(length>0))|{host:$host,key:$key,keyLocation:"https://\($host)/\($key).txt",urlList:.}')
+          echo "payload: $JSON"
+          curl -fsS -A "Mozilla/5.0" -X POST "https://api.indexnow.org/indexnow" -H "Content-Type: application/json" -d "$JSON" -w "\nIndexNow HTTP %{http_code}\n"
