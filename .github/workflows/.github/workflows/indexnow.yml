@@ -1,0 +1,24 @@
+name: IndexNow ping
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping IndexNow (auto on push)
+        run: |
+          python3 - <<'PYEOF'
+          import urllib.request, json, re
+          host = "spectruminfo.xyz"
+          key = "218ab63daac83eb1b3920b969dcde10c"
+          sm = urllib.request.urlopen(f"https://{host}/sitemap.xml", timeout=30).read().decode()
+          urls = [u.strip() for u in re.findall(r"<loc>(.*?)</loc>", sm) if u.strip()]
+          payload = {"host":host,"key":key,"keyLocation":f"https://{host}/{key}.txt","urlList":urls}
+          req = urllib.request.Request("https://api.indexnow.org/indexnow",
+              data=json.dumps(payload).encode(),
+              headers={"Content-Type":"application/json"}, method="POST")
+          with urllib.request.urlopen(req, timeout=30) as r:
+              print("IndexNow", r.status, r.read().decode()[:200])
+          PYEOF
